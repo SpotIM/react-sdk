@@ -3,9 +3,9 @@ import { ProductWrapper } from '../ProductWrapper';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   postId: string;
+  postUrl: string;
   spotId?: string;
-  postUrl?: string;
-  articleTags?: string;
+  articleTags?: string | string[];
 }
 
 export const Conversation: React.FC<Props> = ({
@@ -15,6 +15,12 @@ export const Conversation: React.FC<Props> = ({
   articleTags,
   ...attributes
 }) => {
+  const tags = articleTags
+    ? Array.isArray(articleTags)
+      ? articleTags.join(',')
+      : articleTags
+    : null;
+
   return (
     <ProductWrapper spotId={spotId}>
       <div
@@ -22,7 +28,7 @@ export const Conversation: React.FC<Props> = ({
         data-spotim-module="conversation"
         data-post-id={postId}
         data-post-url={postUrl}
-        data-article-tags={articleTags}
+        data-article-tags={tags}
       />
     </ProductWrapper>
   );
