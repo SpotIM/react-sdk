@@ -5,12 +5,10 @@ interface IProps {
   spotId: string;
 }
 
-export const OpenWebProvider: React.FC<IProps> = forwardRef(
-  ({ spotId, children }, ref) => {
-    return (
-      <OpenWebContext.Provider value={{ spotId }}>
-        {children}
-      </OpenWebContext.Provider>
-    );
-  }
-);
+export const OpenWebProvider: React.FC<IProps> = ({ spotId, children }) => {
+  return (
+    <OpenWebContext.Provider value={{ spotId }}>
+      {children}
+    </OpenWebContext.Provider>
+  );
+};

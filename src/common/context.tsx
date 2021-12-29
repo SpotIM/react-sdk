@@ -13,10 +13,6 @@ export const useOpenWebContext = (
 ) => {
   const ctx = useContext(OpenWebContext);
 
-  if (!ctx) {
-    return null;
-  }
-
   return selector(ctx);
 };
 

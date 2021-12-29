@@ -16,15 +16,15 @@ export const addLauncherScript = ({
   onLoad?: () => void;
   onError?: () => void;
 }) => {
-  const launcherScript = document.querySelector(
+  const launcherScript = document.querySelector<HTMLScriptElement>(
     `script[${LAUNCHER_SCRIPT_SELECTOR}]`
-  ) as HTMLScriptElement;
-  const unmountLauncher = (script: HTMLScriptElement) => () => {
+  );
+  const unmountLauncher = (script: HTMLScriptElement) => {
     script.parentNode?.removeChild(script);
   };
 
   if (launcherScript) {
-    return unmountLauncher(launcherScript);
+    return () => unmountLauncher(launcherScript);
   }
 
   const host = hostEl || document.body;
@@ -45,5 +45,5 @@ export const addLauncherScript = ({
 
   host.appendChild(script);
 
-  return unmountLauncher(script);
+  return () => unmountLauncher(script);
 };
