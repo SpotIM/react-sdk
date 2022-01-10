@@ -15,6 +15,7 @@ export const MessagesCount: React.FC<IProps> = ({
     <ProductWrapper spotId={spotId}>
       <span
         {...attributes}
+        data-spotim-module="messages-count"
         className={`spot-im-replies-count ${attributes.className || ''}`}
         data-post-id={postId}
       />

@@ -6,6 +6,11 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   postUrl: string;
   spotId?: string;
   articleTags?: string | string[];
+  socialReviews?: boolean;
+  theme?: 'light' | 'dark';
+  authorId?: string;
+  scrollToComment?: string;
+  scrollToReply?: string;
 }
 
 export const Conversation: React.FC<Props> = ({
@@ -13,6 +18,11 @@ export const Conversation: React.FC<Props> = ({
   postId,
   postUrl,
   articleTags,
+  socialReviews,
+  theme,
+  authorId,
+  scrollToComment,
+  scrollToReply,
   ...attributes
 }) => {
   const tags = articleTags
@@ -29,6 +39,11 @@ export const Conversation: React.FC<Props> = ({
         data-post-id={postId}
         data-post-url={postUrl}
         data-article-tags={tags}
+        data-social-reviews={socialReviews}
+        data-theme={theme}
+        data-author-id={authorId}
+        data-spot-im-scroll-to-comment={scrollToComment}
+        data-spot-im-scroll-to-reply={scrollToReply}
       />
     </ProductWrapper>
   );
