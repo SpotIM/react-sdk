@@ -1,0 +1,74 @@
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@3.0.0
+  slack: circleci/slack@4.5.1
+  codecov: codecov/codecov@3.2.2
+jobs:
+  build:
+    docker:
+      - image: cimg/node:current
+    working_directory: ~/app
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      - run:
+          name: Set NPM Token
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/app/.npmrc
+      - run:
+          name: Install Dependencies
+          command: yarn
+      - run:
+          name: Build
+          command: yarn run build
+      - run:
+          name: Check Bundle Size
+          command: yarn run bundlewatch
+      - codecov/upload:
+          file: ~/app/stats.html
+      - persist_to_workspace:
+          root: ~/app
+          paths: .
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+  deploy:
+    docker:
+      - image: cimg/node:current
+    working_directory: ~/app
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Publish package
+          command: npm publish
+      - run:
+          name: Set NPM Token
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/app/.npmrc
+      - run:
+          name: Notify to Slack
+          command: npx @spotim/slack-notifier ${CIRCLE_TAG} ${CIRCLE_PROJECT_REPONAME} ${CIRCLE_USERNAME} ${GITHUB_AUTH_KEY} ${PACAKGE_RELEASE_SLACK_WEBHOOK}
+          when: on_success
+workflows:
+  version: 2.1
+  build-and-deploy:
+    jobs:
+      - build:
+          context: dev
+          filters:
+            tags:
+              only: /^v.*/
+      - deploy:
+          context: dev
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
