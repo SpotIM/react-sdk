@@ -1,0 +1,16 @@
+coverage
+node_modules
+.eslintignore
+yarn.lock
+.vscode
+.eslintrc
+.github
+.idea
+packages
+modules
+mock
+.yalc
+yalc.lock
+.storybook
+stories
+!lib/src
