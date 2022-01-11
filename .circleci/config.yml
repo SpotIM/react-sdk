@@ -46,7 +46,12 @@ jobs:
           at: ~/app
       - run:
           name: Publish package
-          command: npm publish
+          command: |
+            if [[ $CIRCLE_TAG == *"beta"* ]]; then
+              npm publish --tag beta
+              else
+                npm publish
+            fi
       - run:
           name: Set NPM Token
           command: echo "//registry.npmjs.org/:_authToken=$PUBLIC_NPM_TOKEN" > ~/app/.npmrc
