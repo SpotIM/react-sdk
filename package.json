@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "parcel demo/index.html",
-    "build": "NODE_ENV=production parcel build src/index.ts && agadoo",
+    "build": "NODE_ENV=production parcel build src/index.ts",
     "build:analyze": "yarn build --reporter @parcel/reporter-bundle-analyzer",
     "prepublishOnly": "yarn remove-cache",
     "remove-cache": "rm -rf .parcel-cache"
