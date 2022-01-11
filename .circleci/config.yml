@@ -24,9 +24,6 @@ jobs:
       - run:
           name: Build
           command: yarn run build
-      - run:
-          name: Check Bundle Size
-          command: yarn run bundlewatch
       - codecov/upload:
           file: ~/app/stats.html
       - persist_to_workspace:
