@@ -17,7 +17,7 @@ jobs:
             - v1-dependencies-
       - run:
           name: Set NPM Token
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/app/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$PUBLIC_NPM_TOKEN" > ~/app/.npmrc
       - run:
           name: Install Dependencies
           command: yarn
@@ -49,7 +49,7 @@ jobs:
           command: npm publish
       - run:
           name: Set NPM Token
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/app/.npmrc
+          command: echo "//registry.npmjs.org/:_authToken=$PUBLIC_NPM_TOKEN" > ~/app/.npmrc
       - run:
           name: Notify to Slack
           command: npx @spotim/slack-notifier ${CIRCLE_TAG} ${CIRCLE_PROJECT_REPONAME} ${CIRCLE_USERNAME} ${GITHUB_AUTH_KEY} ${PACAKGE_RELEASE_SLACK_WEBHOOK}
