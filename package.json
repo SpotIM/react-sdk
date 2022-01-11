@@ -1,9 +1,9 @@
 {
   "name": "@open-web/react-sdk",
   "version": "1.0.0-beta",
-  "description": "> TODO: description",
-  "author": "",
-  "homepage": "",
+  "description": "React wrapper around OpenWeb's products",
+  "author": "OpenWeb",
+  "homepage": "https://www.openweb.com",
   "license": "ISC",
   "source": "src/index.ts",
   "module": "lib/index.esm.js",

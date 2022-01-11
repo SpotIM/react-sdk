@@ -24,8 +24,6 @@ jobs:
       - run:
           name: Build
           command: yarn run build
-      - codecov/upload:
-          file: ~/app/stats.html
       - persist_to_workspace:
           root: ~/app
           paths: .
