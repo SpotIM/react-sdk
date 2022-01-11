@@ -5,9 +5,9 @@ This package is a wrapper around OpenWeb's products, with added functionality re
 ## Installation
 
 ```bash
-yarn add @openweb/react
+yarn add @open-web/react-sdk
 # or
-npm install @openweb/react
+npm install @open-web/react-sdk
 ```
 
 ## Usage
@@ -15,7 +15,7 @@ npm install @openweb/react
 ### Conversation
 
 ```typescript
-import { Conversation } from '@openweb/react';
+import { Conversation } from '@open-web/react-sdk';
 
 const CommentsSection = () => {
   return (
@@ -34,7 +34,7 @@ Make sure to provide `spotId` to any imported OpenWeb product rendered on your a
 You can also wrap your app with `OpenWebProvider` component and omit the `spotId` prop from the child product components:
 
 ```typescript
-import { OpenWebProvider, Conversation } from '@openweb/react';
+import { OpenWebProvider, Conversation } from '@open-web/react-sdk';
 
 const App = () => {
   return (
@@ -56,7 +56,7 @@ You can style the text returned from the component as you want, by providing `cl
 Note: The message count can be displayed separated from your conversation. If you want to preview a particular article title with the number of comments posted in it, for instance.
 
 ```typescript
-import { MessagesCount } from '@openweb/react';
+import { MessagesCount } from '@open-web/react-sdk';
 
 const App = () => {
   return (
