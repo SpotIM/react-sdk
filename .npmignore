@@ -14,3 +14,4 @@ yalc.lock
 .storybook
 stories
 !lib/src
+coverage
