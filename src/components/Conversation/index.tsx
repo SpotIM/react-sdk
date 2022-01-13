@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductWrapper } from '../ProductWrapper';
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
+export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   postId: string;
   postUrl: string;
   spotId?: string;
@@ -13,7 +13,7 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
   scrollToReply?: string;
 }
 
-export const Conversation: React.FC<Props> = ({
+export const Conversation: React.FC<IProps> = ({
   spotId,
   postId,
   postUrl,

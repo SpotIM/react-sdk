@@ -11,7 +11,7 @@
     "declaration": true,
     "declarationMap": false,
     "checkJs": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "removeComments": true,
     "pretty": true,

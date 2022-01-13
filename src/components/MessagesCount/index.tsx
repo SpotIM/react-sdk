@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProductWrapper } from '../ProductWrapper';
 
-interface IProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface IProps extends React.HTMLAttributes<HTMLSpanElement> {
   postId: string;
   spotId?: string;
 }

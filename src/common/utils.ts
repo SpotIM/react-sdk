@@ -1,10 +1,13 @@
 import { IOpenWebBaseProps } from '../types';
 
-const LAUNCHER_SCRIPT_BASE_URL = 'https://launcher.spot.im/spot';
+export const LAUNCHER_SCRIPT_BASE_URL = 'https://launcher.spot.im/spot';
 const LAUNCHER_SCRIPT_SELECTOR = 'data-spotim-module="spotim-launcher"';
 
-const unmountLauncher = (script: HTMLScriptElement) => {
-  script.parentNode?.removeChild(script);
+export type LauncherOptions = IOpenWebBaseProps & {
+  autoRun?: boolean;
+  hostEl?: HTMLElement | null;
+  onLoad?: () => void;
+  onError?: () => void;
 };
 
 export const addLauncherScript = ({
@@ -14,18 +17,13 @@ export const addLauncherScript = ({
   onLoad = () => {},
   onError = () => {},
   ...attributes
-}: IOpenWebBaseProps & {
-  autoRun?: boolean;
-  hostEl?: HTMLElement | null;
-  onLoad?: () => void;
-  onError?: () => void;
-}) => {
+}: LauncherOptions) => {
   const launcherScript = document.querySelector<HTMLScriptElement>(
     `script[${LAUNCHER_SCRIPT_SELECTOR}]`
   );
 
   if (launcherScript) {
-    return () => unmountLauncher(launcherScript);
+    return launcherScript;
   }
 
   const host = hostEl || document.body;
@@ -46,5 +44,5 @@ export const addLauncherScript = ({
 
   host.appendChild(script);
 
-  return () => unmountLauncher(script);
+  return script;
 };
