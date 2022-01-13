@@ -1,5 +1,9 @@
 # OpenWeb React SDK
 
+[![npm version](https://badge.fury.io/js/@open-web%2Freact-sdk.svg)](https://badge.fury.io/js/@open-web%2Freact-sdk)
+[![CircleCI](https://circleci.com/gh/SpotIM/react-sdk/tree/main.svg?style=svg&circle-token=a7774f8ac064b67762ff264ae953e80e50bd4780)](https://circleci.com/gh/SpotIM/react-sdk/tree/main)
+[![codecov](https://codecov.io/gh/SpotIM/react-sdk/branch/main/graph/badge.svg?token=WjfflSn6L5)](https://codecov.io/gh/SpotIM/react-sdk)
+
 This package is a wrapper around OpenWeb's products, with added functionality related to React. All products are exported as wrapped React component which responsible for initializing our cross-products shared functionalities and boot the product itself. Our SDK requires React and React-DOM with version 16+ installed on your application.
 
 ## Installation
