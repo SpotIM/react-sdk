@@ -3,10 +3,6 @@ import { IOpenWebBaseProps } from '../types';
 export const LAUNCHER_SCRIPT_BASE_URL = 'https://launcher.spot.im/spot';
 const LAUNCHER_SCRIPT_SELECTOR = 'data-spotim-module="spotim-launcher"';
 
-const unmountLauncher = (script: HTMLScriptElement) => {
-  script.parentNode?.removeChild(script);
-};
-
 export type LauncherOptions = IOpenWebBaseProps & {
   autoRun?: boolean;
   hostEl?: HTMLElement | null;
