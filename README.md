@@ -4,7 +4,13 @@
 [![CircleCI](https://circleci.com/gh/SpotIM/react-sdk/tree/main.svg?style=svg&circle-token=a7774f8ac064b67762ff264ae953e80e50bd4780)](https://circleci.com/gh/SpotIM/react-sdk/tree/main)
 [![codecov](https://codecov.io/gh/SpotIM/react-sdk/branch/main/graph/badge.svg?token=WjfflSn6L5)](https://codecov.io/gh/SpotIM/react-sdk)
 
-This package is a wrapper around OpenWeb's products, with added functionality related to React. All products are exported as wrapped React component which responsible for initializing our cross-products shared functionalities and boot the product itself. Our SDK requires React and React-DOM with version 16+ installed on your application.
+The OpenWeb React SDK package enables OpenWeb products to be added to React single-page applications. Through this package, an OpenWeb product is exported as a wrapped React component that is responsible for initializing shared cross-product functionalities and booting specific OpenWeb products.
+
+## Requirements
+
+- React v16+
+- ReactDOM v16+
+- [Spot ID](https://developers.openweb.com/docs/launcher-code#spot-id)
 
 ## Installation
 
@@ -16,7 +22,15 @@ npm install @open-web/react-sdk
 
 ## Usage
 
-### Conversation
+## Conversation Implementation
+
+Conversation enables you to create a fluent conversation experience that fuels quality interactions with community and content and allows users to create valuable and engaging content.
+
+### Single Conversation
+
+Use the following steps to add a single Conversation to a single-page application:
+
+1. Import `Conversation` from the OpenWeb React SDK and add a `Conversation` instance to the single-page application.
 
 ```typescript
 import { Conversation } from '@open-web/react-sdk';
@@ -33,9 +47,18 @@ const CommentsSection = () => {
 };
 ```
 
-Make sure to provide `spotId` to any imported OpenWeb product rendered on your app.
+2. Define the Conversation props:
+   - spotId
+   - postId
+   - articleTags
+   - postUrl
 
-You can also wrap your app with `OpenWebProvider` component and omit the `spotId` prop from the child product components:
+### Multiple Conversations
+
+Use the following steps to add multiple Conversations to a single-page application:
+
+1. Import `OpenWebProvider` and `Conversation` from the OpenWeb React SDK and wrap the entire application – including each Conversation instance – with `OpenWebProvider`.
+   The OpenWebProvider component allows you to define spotId one time for all Conversation instances within the app.
 
 ```typescript
 import { OpenWebProvider, Conversation } from '@open-web/react-sdk';
@@ -48,16 +71,34 @@ const App = () => {
         articleTags={['tag1', 'tag2', 'tag3']}
         postUrl="http://www.example.com"
       />
+      ...
+      <Conversation
+        postId="example_post2"
+        articleTags={['tag1', 'tag2', 'tag3']}
+        postUrl="http://www.example2.com"
+      />
     </OpenWebProvider>
   );
 };
 ```
 
-### Messages Count
+2. Define the `spotId` prop of `OpenWebProvider`.
+3. Define the props for each `Conversation`:
+   - postId
+   - articleTags
+   - postUrl
 
-In case you want to preview the amount of messages for a specific conversation, you can use the MessagesCount component.
-You can style the text returned from the component as you want, by providing `className` or by inline style.
-Note: The message count can be displayed separated from your conversation. If you want to preview a particular article title with the number of comments posted in it, for instance.
+💡 _NOTE: If you prefer not to wrap your app with the OpenWebProvider component, use the Single Conversation implementation instructions and add multiple Conversation instances to the single-page application._
+
+## Messages Count Implementation
+
+To show your users the engagement level of a specific Conversation, you can use the `MessagesCount` component to display the number of user comments that have been posted to the Conversation.
+
+You can style the text returned from the component by defining the className attribute with the name of CSS class or by defining an inline style.
+
+💡 _NOTE: The `MessagesCount` component does not need to be displayed with the Conversation it references. For example, you can preview an article with its title and number of posted comments._
+
+1. Import `MessagesCount` from the OpenWeb React SDK.
 
 ```typescript
 import { MessagesCount } from '@open-web/react-sdk';
@@ -72,3 +113,8 @@ const App = () => {
   );
 };
 ```
+
+2. Define the attributes of MessagesCount:
+   - spotId
+   - postId
+   - (optional) className
