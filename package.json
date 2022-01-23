@@ -4,6 +4,12 @@
   "description": "React wrapper around OpenWeb's products",
   "author": "OpenWeb",
   "license": "UNLICENSED",
+  "keywords": [
+    "social",
+    "social-media",
+    "react",
+    "sdk"
+  ],
   "homepage": "https://www.openweb.com",
   "repository": "https://github.com/SpotIM/react-sdk.git",
   "source": "src/index.ts",
