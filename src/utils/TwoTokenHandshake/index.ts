@@ -1,4 +1,4 @@
-import { User } from "../types";
+import { User } from "../../types";
 
 const SPOTIM_API_READY = "spot-im-api-ready";
 
