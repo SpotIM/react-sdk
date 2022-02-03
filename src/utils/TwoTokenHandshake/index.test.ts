@@ -39,11 +39,11 @@ describe("Two Token Handshake", () => {
   });
 
   it("should call completeSSOCallback with codeB when its on window", async () => {
-    const completeSSOCallback = jest.fn();
+    const completeTTHCallback = jest.fn();
     const windowStartTTHMock = jest
       .fn()
       .mockImplementation(({ userId, callback }) => {
-        callback("code_a", completeSSOCallback);
+        callback("code_a", completeTTHCallback);
       });
 
     //@ts-ignore
@@ -52,7 +52,7 @@ describe("Two Token Handshake", () => {
     };
     await startTTH({ userId: "user-user", performBEDHandshake });
 
-    expect(completeSSOCallback).toBeCalledTimes(1);
+    expect(completeTTHCallback).toBeCalledTimes(1);
   });
 
   it("should call logout when its on window", async () => {

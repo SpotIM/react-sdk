@@ -13,12 +13,12 @@ export const startTTH = ({
 }) =>
   new Promise<User>((resolve, reject) => {
     const startHandshake = async () => {
-      const callback = async (codeA, completeSSOCallback) => {
+      const callback = async (codeA, completeTTHCallback) => {
         try {
           const codeB = await performBEDHandshake(codeA);
 
           if (codeB) {
-            completeSSOCallback(codeB);
+            completeTTHCallback(codeB);
           }
         } catch (err) {
           console.error("startTTH - error with getCodeB", err);
