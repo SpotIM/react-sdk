@@ -2,7 +2,7 @@ import { User } from "../types";
 
 const SPOTIM_API_READY = "spot-im-api-ready";
 
-type TPerformBEDHandshake = (codeA: string) => Promise<{ codeB: string }>;
+type TPerformBEDHandshake = (codeA: string) => Promise<string>;
 
 export const startTTH = ({
   performBEDHandshake,
@@ -40,10 +40,22 @@ export const startTTH = ({
       }
     };
 
-    if ((window as any).SPOTIM && (window as any).SPOTIM.startSSO) {
+    if ((window as any).SPOTIM && (window as any).SPOTIM.startTTH) {
       startHandshake();
     } else {
-      document.addEventListener(SPOTIM_API_READY, startHandshake, false);
+      const startHandshakeOnApiReady = async () => {
+        startHandshake();
+        document.removeEventListener(
+          SPOTIM_API_READY,
+          startHandshakeOnApiReady
+        );
+      };
+
+      document.addEventListener(
+        SPOTIM_API_READY,
+        startHandshakeOnApiReady,
+        false
+      );
     }
   });
 
@@ -53,6 +65,7 @@ export const logout = () =>
       try {
         const currentUser = await (window as any).SPOTIM.logout();
         console.log("startTTH - logout success", currentUser);
+
         resolve(currentUser);
       } catch (err) {
         console.error("startTTH - logout failed", err);
@@ -61,15 +74,13 @@ export const logout = () =>
     };
 
     if ((window as any).SPOTIM && (window as any).SPOTIM.logout) {
-      await logout();
+      logout();
     } else {
-      document.addEventListener(
-        SPOTIM_API_READY,
-        async () => {
-          await logout();
-          document.removeEventListener(SPOTIM_API_READY, logout);
-        },
-        false
-      );
+      const logoutOnApiReady = async () => {
+        logout();
+        document.removeEventListener(SPOTIM_API_READY, logoutOnApiReady);
+      };
+
+      document.addEventListener(SPOTIM_API_READY, logoutOnApiReady, false);
     }
   });
