@@ -15,7 +15,7 @@ export const startTTH = ({
     const startHandshake = async () => {
       const callback = async (codeA, completeSSOCallback) => {
         try {
-          const { codeB } = await performBEDHandshake(codeA);
+          const codeB = await performBEDHandshake(codeA);
 
           if (codeB) {
             completeSSOCallback(codeB);

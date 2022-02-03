@@ -1,6 +1,6 @@
 {
   "name": "@open-web/react-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React wrapper around OpenWeb's products",
   "author": "OpenWeb",
   "license": "UNLICENSED",
@@ -32,7 +32,8 @@
     "test": "jest --passWithNoTests",
     "test:coverage": "yarn test --ci --runInBand --passWithNoTests --coverage --reporters=default && codecov",
     "prepublishOnly": "yarn remove-cache",
-    "remove-cache": "rm -rf .parcel-cache"
+    "remove-cache": "rm -rf .parcel-cache",
+    "prepare": "yarn build"
   },
   "peerDependencies": {
     "react": ">=16",
