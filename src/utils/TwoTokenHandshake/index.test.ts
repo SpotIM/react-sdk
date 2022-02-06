@@ -4,14 +4,12 @@ const performBEDHandshake = async (codeA) => "code_b";
 
 describe("Two Token Handshake", () => {
   afterEach(() => {
-    //@ts-ignore
     window.SPOTIM = {};
   });
 
   it("should call startTTH when its on window", async () => {
     const windowStartTTHMock = jest.fn().mockReturnValue("bla");
 
-    //@ts-ignore
     window.SPOTIM = {
       startTTH: windowStartTTHMock,
     };
@@ -29,7 +27,6 @@ describe("Two Token Handshake", () => {
       });
     const err = new Error("performBEDHandshake");
 
-    //@ts-ignore
     window.SPOTIM = {
       startTTH: windowStartTTHMock,
     };
@@ -48,7 +45,7 @@ describe("Two Token Handshake", () => {
 
     startTTH({ userId: "user-user", performBEDHandshake });
     expect(windowStartTTHMock).toBeCalledTimes(0);
-    //@ts-ignore
+
     window.SPOTIM = {
       startTTH: windowStartTTHMock,
     };
@@ -69,7 +66,6 @@ describe("Two Token Handshake", () => {
         callback("code_a", completeTTHCallback);
       });
 
-    //@ts-ignore
     window.SPOTIM = {
       startTTH: windowStartTTHMock,
     };
@@ -81,7 +77,6 @@ describe("Two Token Handshake", () => {
   it("should call logout when its on window", async () => {
     const windowLogoutMock = jest.fn();
 
-    //@ts-ignore
     window.SPOTIM = {
       logout: windowLogoutMock,
     };
@@ -95,7 +90,7 @@ describe("Two Token Handshake", () => {
 
     logout();
     expect(windowLogoutMock).toBeCalledTimes(0);
-    //@ts-ignore
+
     window.SPOTIM = {
       logout: windowLogoutMock,
     };

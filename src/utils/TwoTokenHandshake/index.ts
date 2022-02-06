@@ -27,14 +27,20 @@ export const startTTH = ({
       };
 
       try {
-        const userData = await (window as any).SPOTIM.startTTH({
-          callback,
-          userId,
-        });
-        console.log("startTTH - success with user:", userData);
+        if (window.SPOTIM && window.SPOTIM.startTTH) {
+          const userData = await window.SPOTIM.startTTH({
+            callback,
+            userId,
+          });
+          console.log("startTTH - success with user:", userData);
 
-        resolve(userData);
-        return;
+          resolve(userData);
+          return;
+        }
+
+        throw new Error(
+          "startTTH - window.SPOTIM.startTTH is not visible on window"
+        );
       } catch (err) {
         console.error("startTTH - client side start sso failed with", err);
         reject(err);
@@ -42,7 +48,7 @@ export const startTTH = ({
       }
     };
 
-    if ((window as any).SPOTIM && (window as any).SPOTIM.startTTH) {
+    if (window.SPOTIM && window.SPOTIM.startTTH) {
       startHandshake();
     } else {
       const startHandshakeOnApiReady = async () => {
@@ -65,18 +71,25 @@ export const logout = () =>
   new Promise<User>(async (resolve, reject) => {
     const logout = async () => {
       try {
-        const currentUser = await (window as any).SPOTIM.logout();
-        console.log("startTTH - logout success", currentUser);
+        if (window.SPOTIM && window.SPOTIM.logout) {
+          const currentUser = await window.SPOTIM.logout();
+          console.log("logout TTH - logout success", currentUser);
 
-        resolve(currentUser);
+          resolve(currentUser);
+          return;
+        }
+
+        throw new Error(
+          "logout TTH  - window.SPOTIM.logout is not visible on window"
+        );
       } catch (err) {
-        console.error("startTTH - logout failed", err);
+        console.error("logout TTH - logout failed", err);
         reject(err);
         return;
       }
     };
 
-    if ((window as any).SPOTIM && (window as any).SPOTIM.logout) {
+    if (window.SPOTIM && window.SPOTIM.logout) {
       logout();
     } else {
       const logoutOnApiReady = async () => {
