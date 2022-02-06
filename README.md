@@ -33,14 +33,14 @@ Use the following steps to add a single Conversation to a single-page applicatio
 1. Import `Conversation` from the OpenWeb React SDK and add a `Conversation` instance to the single-page application.
 
 ```typescript
-import { Conversation } from '@open-web/react-sdk';
+import { Conversation } from "@open-web/react-sdk";
 
 const CommentsSection = () => {
   return (
     <Conversation
       spotId="sp_example"
       postId="example_post"
-      articleTags={['tag1', 'tag2', 'tag3']}
+      articleTags={["tag1", "tag2", "tag3"]}
       postUrl="http://www.example.com"
     />
   );
@@ -61,20 +61,20 @@ Use the following steps to add multiple Conversations to a single-page applicati
    The OpenWebProvider component allows you to define spotId one time for all Conversation instances within the app.
 
 ```typescript
-import { OpenWebProvider, Conversation } from '@open-web/react-sdk';
+import { OpenWebProvider, Conversation } from "@open-web/react-sdk";
 
 const App = () => {
   return (
     <OpenWebProvider spotId="sp_example">
       <Conversation
         postId="example_post"
-        articleTags={['tag1', 'tag2', 'tag3']}
+        articleTags={["tag1", "tag2", "tag3"]}
         postUrl="http://www.example.com"
       />
       ...
       <Conversation
         postId="example_post2"
-        articleTags={['tag1', 'tag2', 'tag3']}
+        articleTags={["tag1", "tag2", "tag3"]}
         postUrl="http://www.example2.com"
       />
     </OpenWebProvider>
@@ -101,7 +101,7 @@ You can style the text returned from the component by defining the className att
 1. Import `MessagesCount` from the OpenWeb React SDK.
 
 ```typescript
-import { MessagesCount } from '@open-web/react-sdk';
+import { MessagesCount } from "@open-web/react-sdk";
 
 const App = () => {
   return (
@@ -118,3 +118,32 @@ const App = () => {
    - spotId
    - postId
    - (optional) className
+
+## Two Token Authentication
+
+### Start Two Token Handshake
+
+To start the TTH one should call `startTTH` function with:
+
+- `userId <string>`: A unique string that is stored as an internal state for OW's login system (client). The id let us know whether current user has changed and we need to perform login again.
+- `performBEDHandshake <(codeA: string) => Promise<string>>`: A callback that recives Token A pass it to partner's BED. After the partner's performs the login with OW it sends back Token B (`code_b`) and returns that to OW's client.
+
+```typescript
+import { startTTH } from "@open-web/react-sdk";
+
+const login = () => {
+  startTTH({ userId, performBEDHandshake });
+};
+```
+
+### Logout
+
+To perform a logout, one should call the logout function.
+
+```typescript
+import { logout } from "@open-web/react-sdk";
+
+const logoutFromOw = () => {
+  logout();
+};
+```
