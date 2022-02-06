@@ -21,8 +21,8 @@ export const startTTH = ({
             completeTTHCallback(codeB);
           }
         } catch (err) {
-          console.error("startTTH - error with getCodeB", err);
-          reject(err);
+          console.error("startTTH - error with performBEDHandshake", err);
+          throw err;
         }
       };
 
@@ -34,9 +34,11 @@ export const startTTH = ({
         console.log("startTTH - success with user:", userData);
 
         resolve(userData);
+        return;
       } catch (err) {
         console.error("startTTH - client side start sso failed with", err);
         reject(err);
+        return;
       }
     };
 
@@ -70,6 +72,7 @@ export const logout = () =>
       } catch (err) {
         console.error("startTTH - logout failed", err);
         reject(err);
+        return;
       }
     };
 

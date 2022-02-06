@@ -20,6 +20,29 @@ describe("Two Token Handshake", () => {
     expect(windowStartTTHMock).toBeCalledTimes(1);
   });
 
+  it("should call startTTH when its on window and throw error", async () => {
+    const completeTTHCallback = jest.fn();
+    const windowStartTTHMock = jest
+      .fn()
+      .mockImplementation(({ userId, callback }) => {
+        return callback("code_a", completeTTHCallback);
+      });
+    const err = new Error("performBEDHandshake");
+
+    //@ts-ignore
+    window.SPOTIM = {
+      startTTH: windowStartTTHMock,
+    };
+    try {
+      await startTTH({
+        userId: "user-user",
+        performBEDHandshake: jest.fn().mockRejectedValue(err),
+      });
+    } catch (error) {
+      expect(error).toEqual(err);
+    }
+  });
+
   it("should call startTTH only after event fired and remove handler", async () => {
     const windowStartTTHMock = jest.fn().mockReturnValue("bla");
 
