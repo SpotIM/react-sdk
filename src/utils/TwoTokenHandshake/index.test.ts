@@ -18,6 +18,23 @@ describe("Two Token Handshake", () => {
     expect(windowStartTTHMock).toBeCalledTimes(1);
   });
 
+  it("should call startTTH and throw error because SPOTIM is not available", async () => {
+    try {
+      const waitForDocumentEvent = async () =>
+        new Promise(async (resolve, reject) => {
+          startTTH({ userId: "user-user", performBEDHandshake })
+            .then(resolve)
+            .catch(reject);
+          document.dispatchEvent(new Event("spot-im-api-ready"));
+        });
+      await waitForDocumentEvent();
+    } catch (err) {
+      expect(err).toEqual(
+        new Error("startTTH - window.SPOTIM.startTTH is not visible on window")
+      );
+    }
+  });
+
   it("should call startTTH when its on window and throw error", async () => {
     const completeTTHCallback = jest.fn();
     const windowStartTTHMock = jest
