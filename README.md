@@ -134,6 +134,27 @@ import { startTTH } from "@open-web/react-sdk";
 const login = () => {
   startTTH({ userId, performBEDHandshake });
 };
+
+// An example for the performBEDHandshake callback function
+const performBEDHandshake = async (codeA: string) => {
+    const { code_b: codeB } = await fetch(
+      `https://opeweb.partner.example/start-handshake`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          // codeA that the callback gets and should be passed to OW's BED
+          code_a: codeA,
+          // We want to let the BED we want to login with a certain user - that is, the user we should do the BED handshake with OW.
+          userId,
+        }),
+      }
+    ).then(function (res) {
+      return res.json();
+    });
+    
+    // codeB has been received from OW's BED and it is returned to OW's client to complete the handshake.
+    return codeB;
+  };
 ```
 
 ### Logout
@@ -147,3 +168,4 @@ const logoutFromOw = () => {
   logout();
 };
 ```
+
