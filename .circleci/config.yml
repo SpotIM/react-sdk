@@ -25,6 +25,9 @@ jobs:
           name: Test Coverage
           command: yarn test:coverage
       - run:
+          name: Run ESLint
+          command: yarn lint --c .eslintrc.js --cache ./src --quiet
+      - run:
           name: Build
           command: yarn run build
       - persist_to_workspace:

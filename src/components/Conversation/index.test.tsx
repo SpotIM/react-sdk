@@ -1,6 +1,9 @@
-import { Conversation, IProps as ConversationProps } from '.';
-import { getByTestId, render, screen } from '@testing-library/react';
+import React from 'react';
+import { render } from '@testing-library/react';
+
 import { OpenWebProvider } from '../OpenWebProvider';
+
+import { Conversation, IProps as ConversationProps } from '.';
 
 const spotId = 'sp_test';
 const postId = 'post';
@@ -18,9 +21,7 @@ afterEach(() => {
 
 describe('Conversation', () => {
   test('Should Render Conversation', () => {
-    const { getByTestId } = render(
-      <Conversation {...conversationProps} data-testid={'conversation'} />
-    );
+    const { getByTestId } = render(<Conversation {...conversationProps} data-testid="conversation" />);
     const conversation = getByTestId('conversation');
     expect(conversation.dataset).toMatchObject({
       spotimModule: 'conversation',
@@ -32,8 +33,8 @@ describe('Conversation', () => {
   test('Should Render Conversation within OpenWebProvider', () => {
     const { getByTestId } = render(
       <OpenWebProvider spotId={spotId}>
-        <Conversation {...conversationProps} data-testid={'conversation'} />
-      </OpenWebProvider>
+        <Conversation {...conversationProps} data-testid="conversation" />
+      </OpenWebProvider>,
     );
     const conversation = getByTestId('conversation');
     expect(conversation.dataset).toMatchObject({

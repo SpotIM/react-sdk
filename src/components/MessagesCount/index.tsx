@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ProductWrapper } from '../ProductWrapper';
 
 export interface IProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -6,11 +7,7 @@ export interface IProps extends React.HTMLAttributes<HTMLSpanElement> {
   spotId?: string;
 }
 
-export const MessagesCount: React.FC<IProps> = ({
-  spotId,
-  postId,
-  ...attributes
-}) => {
+export const MessagesCount: React.FC<IProps> = ({ spotId, postId, ...attributes }) => {
   return (
     <ProductWrapper spotId={spotId}>
       <span

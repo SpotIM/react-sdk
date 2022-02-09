@@ -1,0 +1,4 @@
+{
+  "*.ts": ["npm run lint --cache --fix"],
+  "*.tsx": ["npm run lint --cache --fix"]
+}

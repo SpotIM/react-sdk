@@ -1,10 +1,12 @@
-import { MessagesCount, IProps as MessagesCountProps } from '.';
-import { getByTestId, render, screen } from '@testing-library/react';
+import React from 'react';
+import { render } from '@testing-library/react';
+
 import { OpenWebProvider } from '../OpenWebProvider';
+
+import { MessagesCount, IProps as MessagesCountProps } from '.';
 
 const spotId = 'sp_test';
 const postId = 'post';
-const postUrl = 'www.example.com';
 
 const moduleName = 'messages-count';
 const messagesCountProps: MessagesCountProps = {
@@ -19,9 +21,7 @@ afterEach(() => {
 
 describe('MessagesCount', () => {
   test('Should Render MessagesCount', () => {
-    const { getByTestId } = render(
-      <MessagesCount {...messagesCountProps} data-testid={moduleName} />
-    );
+    const { getByTestId } = render(<MessagesCount {...messagesCountProps} data-testid={moduleName} />);
     const conversation = getByTestId(moduleName);
     expect(conversation.dataset).toMatchObject({
       spotimModule: moduleName,
@@ -33,7 +33,7 @@ describe('MessagesCount', () => {
     const { getByTestId } = render(
       <OpenWebProvider spotId={spotId}>
         <MessagesCount {...messagesCountProps} data-testid={moduleName} />
-      </OpenWebProvider>
+      </OpenWebProvider>,
     );
     const conversation = getByTestId(moduleName);
     expect(conversation.dataset).toMatchObject({

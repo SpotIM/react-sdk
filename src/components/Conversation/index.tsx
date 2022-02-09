@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { ProductWrapper } from '../ProductWrapper';
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,11 +26,7 @@ export const Conversation: React.FC<IProps> = ({
   scrollToReply,
   ...attributes
 }) => {
-  const tags = articleTags
-    ? Array.isArray(articleTags)
-      ? articleTags.join(',')
-      : articleTags
-    : null;
+  const tags = articleTags ? (Array.isArray(articleTags) ? articleTags.join(',') : articleTags) : null;
 
   return (
     <ProductWrapper spotId={spotId}>

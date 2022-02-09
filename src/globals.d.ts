@@ -1,4 +1,4 @@
-import { User } from "./types";
+import { User } from './types';
 
 declare global {
   interface Window {
@@ -7,10 +7,7 @@ declare global {
         callback,
         userId,
       }: {
-        callback: (
-          codeA: string,
-          completeTTHCallback: (codeB: string) => void
-        ) => void;
+        callback: (codeA: string, completeTTHCallback: (codeB: string) => void) => void;
         userId: string;
       }) => Promise<User>;
       logout?: () => Promise<User>;
