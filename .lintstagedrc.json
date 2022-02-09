@@ -1,4 +1,4 @@
 {
-    "*.ts": ["npm run lint --cache --cache-location ./.cache/.eslintcache --fix"],
-    "*.tsx": ["npm run lint --cache --cache-location ./.cache/.eslintcache --fix"]
-  }
+  "*.ts": ["npm run lint --cache --fix"],
+  "*.tsx": ["npm run lint --cache --fix"]
+}

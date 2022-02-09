@@ -18,9 +18,7 @@ export const addLauncherScript = ({
   onError = () => {},
   ...attributes
 }: LauncherOptions) => {
-  const launcherScript = document.querySelector<HTMLScriptElement>(
-    `script[${LAUNCHER_SCRIPT_SELECTOR}]`
-  );
+  const launcherScript = document.querySelector<HTMLScriptElement>(`script[${LAUNCHER_SCRIPT_SELECTOR}]`);
 
   if (launcherScript) {
     return launcherScript;
@@ -35,12 +33,11 @@ export const addLauncherScript = ({
   script.dataset.spotimModule = 'spotim-launcher';
   script.dataset.spotimAutorun = String(autoRun);
 
-  for (const key in attributes) {
-    const value = attributes[key];
+  Object.entries(attributes).forEach(([key, value]) => {
     if (value) {
       script.dataset[key] = String(value);
     }
-  }
+  });
 
   host.appendChild(script);
 

@@ -1,9 +1,4 @@
-import {
-  addLauncherScript,
-  LauncherOptions,
-  LAUNCHER_SCRIPT_BASE_URL,
-} from '../utils';
-import { useLauncher } from '../hooks';
+import { addLauncherScript, LauncherOptions, LAUNCHER_SCRIPT_BASE_URL } from '../utils';
 
 const spotId = 'sp_test';
 
