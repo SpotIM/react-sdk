@@ -1,1 +1,1 @@
-module.exports = require("@spotim/eslint-config/prettier.config");
+module.exports = require('@spotim/eslint-config/prettier.config');

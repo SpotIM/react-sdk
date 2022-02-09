@@ -3,13 +3,6 @@ module.exports = {
   transform: {
     '^.+\\.[t|j]sx?$': 'ts-jest',
   },
-  modulePathIgnorePatterns: [
-    '<rootDir>/dist/',
-    '<rootDir>/lib/',
-    '<rootDir>/build/',
-    '<rootDir>/.yalc',
-    'utils',
-  ],
   moduleNameMapper: {
     '\\.(sass|scss|css)$': 'identity-obj-proxy',
   },
@@ -19,10 +12,8 @@ module.exports = {
     '<rootDir>/build/',
     '<rootDir>/src/index.ts',
     '<rootDir>/src/types.ts',
+    '<rootDir>/.yalc',
+    'utils',
   ],
-  collectCoverageFrom: [
-    'src/**/*.{js,jsx,ts,tsx}',
-    '!**/node_modules/**',
-    '!src/**/*.(stories|test).{js,jsx,ts,tsx}',
-  ],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!**/node_modules/**', '!src/**/*.(stories|test).{js,jsx,ts,tsx}'],
 };
