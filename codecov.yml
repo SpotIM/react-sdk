@@ -1,0 +1,32 @@
+codecov:
+  require_ci_to_pass: false # Not waiting for circle ci to pass
+  bot: "codecov-io" # Name of the bot
+coverage:
+  status:
+    project:
+      default:
+        target: auto # Setting the minimum value to be the last recorded (for builds not to fail)
+        base: auto # Setting the base branch commit coverage as the base line
+        threshold: 90% # In order to not hcange the tests for every tiny change
+        target: 90%
+        paths:
+          - "./src" # Check the src directory
+    patch: off # Remove the patch check which causes the build to fail usually
+  ignore:
+    - ./src/index.ts
+  precision: 2
+  round: nearest
+  range: "90...100" # Changes only the color, so if its in the range of 90 to 100 it will be green
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+comment:
+  layout: "header, diff, changes, tree"
+  behavior: default
+  require_changes: false
+github_checks:
+  annotations: false
