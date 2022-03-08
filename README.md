@@ -126,17 +126,17 @@ const App = () => {
 To start the TTH one should call `startTTH` function with:
 
 - `userId <string>`: A unique string that is stored as an internal state for OW's login system (client). The id let us know whether current user has changed and we need to perform login again.
-- `performBEDHandshake <(codeA: string) => Promise<string>>`: A callback that recives Token A pass it to partner's BED. After the partner's performs the login with OW it sends back Token B (`code_b`) and returns that to OW's client.
+- `performBEDHandshakeCallback <(codeA: string) => Promise<string>>`: A callback that recives Token A pass it to partner's BED. After the partner's performs the login with OW it sends back Token B (`code_b`) and returns that to OW's client.
 
 ```typescript
 import { startTTH } from "@open-web/react-sdk";
 
 const login = () => {
-  startTTH({ userId, performBEDHandshake });
+  startTTH({ userId, performBEDHandshakeCallback });
 };
 
-// An example for the performBEDHandshake callback function
-const performBEDHandshake = async (codeA: string) => {
+// An example for the performBEDHandshakeCallback callback function
+const performBEDHandshakeCallback = async (codeA: string) => {
     const { code_b: codeB } = await fetch(
       `https://opeweb.partner.example/start-handshake`,
       {

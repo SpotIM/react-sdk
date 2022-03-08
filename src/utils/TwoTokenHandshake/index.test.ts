@@ -1,6 +1,6 @@
 import { logout, startTTH } from '.';
 
-const performBEDHandshake = async _codeA => 'code_b';
+const performBEDHandshakeCallback = async _codeA => 'code_b';
 
 describe('Two Token Handshake', () => {
   afterEach(() => {
@@ -13,7 +13,7 @@ describe('Two Token Handshake', () => {
     window.SPOTIM = {
       startTTH: windowStartTTHMock,
     };
-    startTTH({ userId: 'user-user', performBEDHandshake });
+    startTTH({ userId: 'user-user', performBEDHandshakeCallback });
 
     expect(windowStartTTHMock).toHaveBeenCalledTimes(1);
   });
@@ -22,7 +22,7 @@ describe('Two Token Handshake', () => {
     try {
       const waitForDocumentEvent = async () =>
         new Promise((resolve, reject) => {
-          startTTH({ userId: 'user-user', performBEDHandshake }).then(resolve).catch(reject);
+          startTTH({ userId: 'user-user', performBEDHandshakeCallback }).then(resolve).catch(reject);
           document.dispatchEvent(new Event('spot-im-api-ready'));
         });
       await waitForDocumentEvent();
@@ -37,7 +37,7 @@ describe('Two Token Handshake', () => {
     const windowStartTTHMock = jest.fn().mockImplementation(({ callback }) => {
       return callback('code_a', completeTTHCallback);
     });
-    const err = new Error('performBEDHandshake');
+    const err = new Error('performBEDHandshakeCallback');
 
     window.SPOTIM = {
       startTTH: windowStartTTHMock,
@@ -45,7 +45,7 @@ describe('Two Token Handshake', () => {
     try {
       await startTTH({
         userId: 'user-user',
-        performBEDHandshake: jest.fn().mockRejectedValue(err),
+        performBEDHandshakeCallback: jest.fn().mockRejectedValue(err),
       });
     } catch (error) {
       // eslint-disable-next-line jest/no-try-expect, jest/no-conditional-expect
@@ -56,7 +56,7 @@ describe('Two Token Handshake', () => {
   it('should call startTTH only after event fired and remove handler', async () => {
     const windowStartTTHMock = jest.fn().mockReturnValue('bla');
 
-    startTTH({ userId: 'user-user', performBEDHandshake });
+    startTTH({ userId: 'user-user', performBEDHandshakeCallback });
     expect(windowStartTTHMock).toHaveBeenCalledTimes(0);
 
     window.SPOTIM = {
@@ -80,7 +80,7 @@ describe('Two Token Handshake', () => {
     window.SPOTIM = {
       startTTH: windowStartTTHMock,
     };
-    await startTTH({ userId: 'user-user', performBEDHandshake });
+    await startTTH({ userId: 'user-user', performBEDHandshakeCallback });
 
     expect(completeTTHCallback).toHaveBeenCalledTimes(1);
   });

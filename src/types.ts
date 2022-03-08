@@ -14,3 +14,18 @@ export interface User {
   isAdmin: boolean;
   ssoData: { isSubscriber?: string; [key: string]: any };
 }
+
+declare global {
+  interface Window {
+    SPOTIM?: {
+      startTTH?: ({
+        callback,
+        userId,
+      }: {
+        callback: (codeA: string, completeTTHCallback: (codeB: string) => void) => void;
+        userId: string;
+      }) => Promise<User>;
+      logout?: () => Promise<User>;
+    };
+  }
+}
