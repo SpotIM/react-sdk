@@ -1,6 +1,7 @@
-import { IOpenWebBaseProps } from '../types';
+import { IOpenWebBaseProps, OpenWebSDKEvent } from '../types';
 
 export const LAUNCHER_SCRIPT_BASE_URL = 'https://launcher.spot.im/spot';
+export const OW_SDK_EVENT = 'ow-sdk-event';
 const LAUNCHER_SCRIPT_SELECTOR = 'data-spotim-module="spotim-launcher"';
 
 export type LauncherOptions = IOpenWebBaseProps & {
@@ -42,4 +43,15 @@ export const addLauncherScript = ({
   host.appendChild(script);
 
   return script;
+};
+
+export const subscribeToOpenWebEvents = (tracking = {}) => {
+  const listener = (event: OpenWebSDKEvent) => {
+    const { type } = event.detail;
+    tracking[type]?.(event);
+  };
+
+  document.addEventListener(OW_SDK_EVENT, listener);
+
+  return () => document.removeEventListener(OW_SDK_EVENT, listener);
 };

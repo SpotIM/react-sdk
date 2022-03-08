@@ -14,3 +14,5 @@ export interface User {
   isAdmin: boolean;
   ssoData: { isSubscriber?: string; [key: string]: any };
 }
+
+export type OpenWebSDKEvent = CustomEvent<{ type: string; payload: any }>;
