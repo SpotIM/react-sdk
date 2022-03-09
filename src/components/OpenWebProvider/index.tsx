@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { OpenWebContext } from '../../common/context';
-import { OW_SDK_EVENT, subscribeToOpenWebEvents } from '../../common/utils';
+import { subscribeToOpenWebEvents } from '../../common/utils';
 import { OpenWebSDKEvent } from '../../types';
 import { ProductWrapper } from '../ProductWrapper';
 
