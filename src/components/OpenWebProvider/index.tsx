@@ -10,12 +10,6 @@ interface IProps {
   tracking?: { [eventName: string]: (event: OpenWebSDKEvent) => any };
 }
 
-declare global {
-  interface DocumentEventMap {
-    [OW_SDK_EVENT]: OpenWebSDKEvent;
-  }
-}
-
 export const OpenWebProvider: React.FC<IProps> = ({ spotId, children, tracking = {} }) => {
   useEffect(() => {
     const unsubscribe = subscribeToOpenWebEvents(tracking);
