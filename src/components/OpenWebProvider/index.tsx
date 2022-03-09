@@ -21,7 +21,7 @@ export const OpenWebProvider: React.FC<IProps> = ({ spotId, children, tracking =
     const unsubscribe = subscribeToOpenWebEvents(tracking);
 
     return unsubscribe;
-  }, []);
+  }, [tracking]);
 
   return (
     <OpenWebContext.Provider value={{ spotId }}>
