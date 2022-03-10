@@ -1,4 +1,4 @@
-import { addLauncherScript, LauncherOptions, LAUNCHER_SCRIPT_BASE_URL } from '../utils';
+import { addLauncherScript, LauncherOptions, LAUNCHER_SCRIPT_BASE_URL, subscribeToOpenWebEvents } from '../utils';
 
 const spotId = 'sp_test';
 
@@ -47,5 +47,35 @@ describe('Creating Launcher', () => {
     expect(script.dataset).toMatchObject({
       spotimAutorun: 'true',
     });
+  });
+
+  test('Should subscribed to OpenWeb custom events', () => {
+    const testHandler = jest.fn();
+    const testEventName = `test-event`;
+    subscribeToOpenWebEvents({ [testEventName]: testHandler });
+
+    const createOpenWebSDKEvent = (eventName, payload = {}) =>
+      new CustomEvent(`ow-sdk-event`, { detail: { type: eventName, payload } });
+    const testEvent = createOpenWebSDKEvent('test-event', { test: 1, test2: 2 });
+
+    document.dispatchEvent(testEvent);
+
+    expect(testHandler).toHaveBeenCalledWith(testEvent);
+  });
+
+  test('Should unsubscribe from events', () => {
+    const testHandler = jest.fn();
+    const testEventName = `test-event`;
+    const unsubscribe = subscribeToOpenWebEvents({ [testEventName]: testHandler });
+
+    const createOpenWebSDKEvent = (eventName, payload = {}) =>
+      new CustomEvent(`ow-sdk-event`, { detail: { type: eventName, payload } });
+    const testEvent = createOpenWebSDKEvent('test-event', { test: 1, test2: 2 });
+
+    document.dispatchEvent(testEvent);
+
+    unsubscribe();
+
+    expect(testHandler).toHaveBeenCalledTimes(1);
   });
 });

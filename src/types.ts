@@ -1,3 +1,8 @@
+/* eslint-disable import/no-cycle */
+import { OW_SDK_EVENT } from './common/utils';
+
+export type OpenWebSDKEvent = CustomEvent<{ type: string; payload: any }>;
+
 export interface IOpenWebBaseProps {
   spotId: string;
 }
@@ -27,5 +32,8 @@ declare global {
       }) => Promise<User>;
       logout?: () => Promise<User>;
     };
+  }
+  interface DocumentEventMap {
+    [OW_SDK_EVENT]: OpenWebSDKEvent;
   }
 }
