@@ -112,12 +112,16 @@ To use TTH add the `authentication` property to the `OpenWebProvider`.
 
 - `userId <string | undefined>`: A unique string that is stored as an internal state for OW's login system (client). The id let us know whether current user has changed and we need to perform login again. When `userId=undefined` the provider performs a `logout`.
 - `performBEDHandshakeCallback <(codeA: string) => Promise<string>>`: A callback that recives Token A pass it to partner's BED. After the partner's performs the login with OW it sends back Token B (`code_b`) and returns that to OW's client.
+- `onUserChanged? <(user: User) => void`: A callback that is invoked on current user change. User holds the current user details.
+- `onError? <(err: Error) => void`: A callback that is invoked on error occurred.
 
 ```typescript
 //...
    <OpenWebProvider spotId="<SPOT_ID>" authentication={{
       userId: 'test-user-unique-id or undefined when user is logged out'
       performBEDHandshakeCallback: (codeA) => {console.log("see below implementation proposal for more details")}
+      onUserChanged={(user) => {console.log("Current User in OW is -", user)}}
+      onError={(err) => {console.log("Oh NO! something wrong happened -", err)}}
     }}>
 //...
 ```
