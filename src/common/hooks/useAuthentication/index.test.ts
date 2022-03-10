@@ -1,6 +1,6 @@
 import { renderHook, cleanup } from '@testing-library/react-hooks';
 
-import * as TTH from '../TwoTokenHandshake';
+import * as TTH from '../../../utils/TwoTokenHandshake';
 
 import { useAuthentication } from '.';
 
