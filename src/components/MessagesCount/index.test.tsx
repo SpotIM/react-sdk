@@ -31,7 +31,7 @@ describe('MessagesCount', () => {
 
   test('Should Render MessagesCount within OpenWebProvider', () => {
     const { getByTestId } = render(
-      <OpenWebProvider spotId={spotId}>
+      <OpenWebProvider spotId={spotId} authentication={{}}>
         <MessagesCount {...messagesCountProps} data-testid={moduleName} />
       </OpenWebProvider>,
     );
