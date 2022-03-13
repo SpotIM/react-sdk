@@ -32,7 +32,7 @@ describe('Conversation', () => {
 
   test('Should Render Conversation within OpenWebProvider', () => {
     const { getByTestId } = render(
-      <OpenWebProvider spotId={spotId}>
+      <OpenWebProvider spotId={spotId} authentication={{}}>
         <Conversation {...conversationProps} data-testid="conversation" />
       </OpenWebProvider>,
     );

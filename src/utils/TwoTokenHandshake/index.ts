@@ -4,35 +4,33 @@ const SPOTIM_API_READY = 'spot-im-api-ready';
 
 type TPerformBEDHandshake = (codeA: string) => Promise<string>;
 
-export const startTTH = ({
-  performBEDHandshake,
-  userId,
-}: {
-  performBEDHandshake: TPerformBEDHandshake;
+export type TStartTTH = {
+  performBEDHandshakeCallback: TPerformBEDHandshake;
   userId: string;
-}) =>
+};
+
+export const startTTH = ({ performBEDHandshakeCallback, userId }: TStartTTH) =>
   new Promise<User>((resolve, reject) => {
     const startHandshake = async () => {
       const callback = async (codeA, completeTTHCallback) => {
         try {
-          const codeB = await performBEDHandshake(codeA);
+          const codeB = await performBEDHandshakeCallback(codeA);
 
           if (codeB) {
             completeTTHCallback(codeB);
           }
         } catch (err) {
-          console.error('startTTH - error with performBEDHandshake', err);
+          console.error('startTTH - error with performBEDHandshakeCallback', err);
           throw err;
         }
       };
 
       try {
-        if (window.SPOTIM && window.SPOTIM.startTTH) {
+        if (window?.SPOTIM?.startTTH) {
           const userData = await window.SPOTIM.startTTH({
             callback,
             userId,
           });
-          console.log('startTTH - success with user:', userData);
 
           resolve(userData);
           return;
@@ -45,7 +43,7 @@ export const startTTH = ({
       }
     };
 
-    if (window.SPOTIM && window.SPOTIM.startTTH) {
+    if (window?.SPOTIM?.startTTH) {
       startHandshake();
     } else {
       const startHandshakeOnApiReady = async () => {
@@ -63,7 +61,6 @@ export const logout = () =>
       try {
         if (window.SPOTIM && window.SPOTIM.logout) {
           const currentUser = await window.SPOTIM.logout();
-          console.log('logout TTH - logout success', currentUser);
 
           resolve(currentUser);
           return;

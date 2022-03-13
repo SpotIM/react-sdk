@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useOpenWebContext } from '../../common/context';
 import { IOpenWebBaseProps } from '../../types';
-import { useLauncher } from '../../common/hooks';
+import { useLauncher } from '../../common/hooks/useLauncher';
 
 export const ProductWrapper: React.FC<Partial<IOpenWebBaseProps>> = ({ spotId: _spotId, children, ...rest }) => {
   const owContext = useOpenWebContext();

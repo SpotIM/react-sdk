@@ -1,6 +1,8 @@
 /* eslint-disable import/no-cycle */
 import { OW_SDK_EVENT } from './common/utils';
 
+export type OpenWebSDKEvent = CustomEvent<{ type: string; payload: any }>;
+
 export interface IOpenWebBaseProps {
   spotId: string;
 }
@@ -18,9 +20,19 @@ export interface User {
   ssoData: { isSubscriber?: string; [key: string]: any };
 }
 
-export type OpenWebSDKEvent = CustomEvent<{ type: string; payload: any }>;
-
 declare global {
+  interface Window {
+    SPOTIM?: {
+      startTTH?: ({
+        callback,
+        userId,
+      }: {
+        callback: (codeA: string, completeTTHCallback: (codeB: string) => void) => void;
+        userId: string;
+      }) => Promise<User>;
+      logout?: () => Promise<User>;
+    };
+  }
   interface DocumentEventMap {
     [OW_SDK_EVENT]: OpenWebSDKEvent;
   }

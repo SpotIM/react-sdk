@@ -13,7 +13,6 @@ module.exports = {
     '<rootDir>/src/index.ts',
     '<rootDir>/src/types.ts',
     '<rootDir>/.yalc',
-    'utils',
   ],
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!**/node_modules/**', '!src/**/*.(stories|test).{js,jsx,ts,tsx}'],
 };
