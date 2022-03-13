@@ -154,11 +154,17 @@ const logoutFromOw = () => {
 
 ## Tracking OpenWeb's Custom Events
 
-OpenWeb provides multiple custom events indicates when a particular event was occurred. It can be useful in tracking engagement or for triggering unrelated functionality outside of OpenWeb's products.
+OpenWeb provides multiple custom events indicates when a particular event occurred. It can be useful in tracking engagement or for triggering unrelated functionality outside of OpenWeb's products.
 
 List of all of our events can be found here: https://developers.openweb.com/docs/event-listener-reference
 
 ### Usage
+
+Tracking events can be enabled only when using OpenWebProvider implementation, by passing tracking as prop to OpenWebProvider component.
+
+The `tracking` prop is an object mapping between event-name (listed [here](https://developers.openweb.com/docs/event-listener-reference)) to handler function. Each function will be triggered when the event is dispatched by any of OpenWeb's products. The custom event is passed to the function as its only argument.
+
+In case the event has any associated payload to it, it can be accessed by referencing to `event.detail.payload`.
 
 ```typescript
 import { OpenWebProvider } from '@open-web/react-sdk';
