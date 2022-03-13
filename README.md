@@ -33,14 +33,14 @@ Use the following steps to add a single Conversation to a single-page applicatio
 1. Import `Conversation` from the OpenWeb React SDK and add a `Conversation` instance to the single-page application.
 
 ```typescript
-import { Conversation } from "@open-web/react-sdk";
+import { Conversation } from '@open-web/react-sdk';
 
 const CommentsSection = () => {
   return (
     <Conversation
       spotId="sp_example"
       postId="example_post"
-      articleTags={["tag1", "tag2", "tag3"]}
+      articleTags={['tag1', 'tag2', 'tag3']}
       postUrl="http://www.example.com"
     />
   );
@@ -61,22 +61,14 @@ Use the following steps to add multiple Conversations to a single-page applicati
    The OpenWebProvider component allows you to define spotId one time for all Conversation instances within the app.
 
 ```typescript
-import { OpenWebProvider, Conversation } from "@open-web/react-sdk";
+import { OpenWebProvider, Conversation } from '@open-web/react-sdk';
 
 const App = () => {
   return (
     <OpenWebProvider spotId="sp_example">
-      <Conversation
-        postId="example_post"
-        articleTags={["tag1", "tag2", "tag3"]}
-        postUrl="http://www.example.com"
-      />
+      <Conversation postId="example_post" articleTags={['tag1', 'tag2', 'tag3']} postUrl="http://www.example.com" />
       ...
-      <Conversation
-        postId="example_post2"
-        articleTags={["tag1", "tag2", "tag3"]}
-        postUrl="http://www.example2.com"
-      />
+      <Conversation postId="example_post2" articleTags={['tag1', 'tag2', 'tag3']} postUrl="http://www.example2.com" />
     </OpenWebProvider>
   );
 };
@@ -101,16 +93,10 @@ You can style the text returned from the component by defining the className att
 1. Import `MessagesCount` from the OpenWeb React SDK.
 
 ```typescript
-import { MessagesCount } from "@open-web/react-sdk";
+import { MessagesCount } from '@open-web/react-sdk';
 
 const App = () => {
-  return (
-    <MessagesCount
-      spotId="sp_example"
-      postId="example_post"
-      className="yourClassName"
-    />
-  );
+  return <MessagesCount spotId="sp_example" postId="example_post" className="yourClassName" />;
 };
 ```
 
@@ -129,7 +115,7 @@ To start the TTH one should call `startTTH` function with:
 - `performBEDHandshake <(codeA: string) => Promise<string>>`: A callback that recives Token A pass it to partner's BED. After the partner's performs the login with OW it sends back Token B (`code_b`) and returns that to OW's client.
 
 ```typescript
-import { startTTH } from "@open-web/react-sdk";
+import { startTTH } from '@open-web/react-sdk';
 
 const login = () => {
   startTTH({ userId, performBEDHandshake });
@@ -137,24 +123,21 @@ const login = () => {
 
 // An example for the performBEDHandshake callback function
 const performBEDHandshake = async (codeA: string) => {
-    const { code_b: codeB } = await fetch(
-      `https://opeweb.partner.example/start-handshake`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          // codeA that the callback gets and should be passed to OW's BED
-          code_a: codeA,
-          // We want to let the BED we want to login with a certain user - that is, the user we should do the BED handshake with OW.
-          userId,
-        }),
-      }
-    ).then(function (res) {
-      return res.json();
-    });
-    
-    // codeB has been received from OW's BED and it is returned to OW's client to complete the handshake.
-    return codeB;
-  };
+  const { code_b: codeB } = await fetch(`https://opeweb.partner.example/start-handshake`, {
+    method: 'POST',
+    body: JSON.stringify({
+      // codeA that the callback gets and should be passed to OW's BED
+      code_a: codeA,
+      // We want to let the BED we want to login with a certain user - that is, the user we should do the BED handshake with OW.
+      userId,
+    }),
+  }).then(function (res) {
+    return res.json();
+  });
+
+  // codeB has been received from OW's BED and it is returned to OW's client to complete the handshake.
+  return codeB;
+};
 ```
 
 ### Logout
@@ -162,10 +145,34 @@ const performBEDHandshake = async (codeA: string) => {
 To perform a logout, one should call the logout function.
 
 ```typescript
-import { logout } from "@open-web/react-sdk";
+import { logout } from '@open-web/react-sdk';
 
 const logoutFromOw = () => {
   logout();
 };
 ```
 
+## Tracking OpenWeb's Custom Events
+
+OpenWeb provides multiple custom events indicates when a particular event was occurred. It can be useful in tracking engagement or for triggering unrelated functionality outside of OpenWeb's products.
+
+List of all of our events can be found here: https://developers.openweb.com/docs/event-listener-reference
+
+### Usage
+
+```typescript
+import { OpenWebProvider } from '@open-web/react-sdk';
+
+const App = () => {
+  return (
+    <OpenWebProvider
+      spotId={'sp_example'}
+      tracking={{
+        ['event-name']: event => {
+          console.log('Do Something with this event!', event);
+        },
+      }}
+    ></OpenWebProvider>
+  );
+};
+```
