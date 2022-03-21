@@ -17,7 +17,7 @@ export const startTTH = ({ performBEDHandshakeCallback, userId }: TStartTTH) =>
           const codeB = await performBEDHandshakeCallback(codeA);
 
           if (codeB) {
-            completeTTHCallback(codeB);
+            await completeTTHCallback(codeB);
           }
         } catch (err) {
           console.error('startTTH - error with performBEDHandshakeCallback', err);
