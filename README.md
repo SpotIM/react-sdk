@@ -82,7 +82,7 @@ const App = () => {
    - articleTags
    - postUrl
 
-> 💡 **_NOTE:_** If you prefer not to wrap your app with the OpenWebProvider component, use the Single Conversation implementation instructions and add multiple Conversation instances to the single-page application.\_
+> 💡 **_NOTE:_** If you prefer not to wrap your app with the OpenWebProvider component, use the Single Conversation implementation instructions and add multiple Conversation instances to the single-page application.
 
 ## Messages Count Implementation
 
@@ -90,7 +90,7 @@ To show your users the engagement level of a specific Conversation, you can use 
 
 You can style the text returned from the component by defining the className attribute with the name of CSS class or by defining an inline style.
 
-> 💡 **_NOTE:_** The `MessagesCount` component does not need to be displayed with the Conversation it references. For example, you can preview an article with its title and number of posted comments.\_
+> 💡 **_NOTE:_** The `MessagesCount` component does not need to be displayed with the Conversation it references. For example, you can preview an article with its title and number of posted comments.
 
 1. Import `MessagesCount` from the OpenWeb React SDK.
 
