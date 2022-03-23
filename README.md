@@ -26,7 +26,7 @@ npm install @open-web/react-sdk
 
 Conversation enables you to create a fluent conversation experience that fuels quality interactions with community and content and allows users to create valuable and engaging content.
 
-### Single Conversation
+### Separated Product Implementation
 
 Use the following steps to add a single Conversation to a single-page application:
 
@@ -53,9 +53,11 @@ const CommentsSection = () => {
    - articleTags
    - postUrl
 
-### Multiple Conversations
+### OpenWebProvider Implementation
 
-Use the following steps to add multiple Conversations to a single-page application:
+It is highly recommended to use our OpenWebProvider implementation as it allows you to pass `spotId` only once in addition to more functionalities that being added on top of our products.
+
+> 💡 **_NOTE:_** In case you are using OpenWebProvider, please make sure all OpenWeb products are being rendered within it.
 
 1. Import `OpenWebProvider` and `Conversation` from the OpenWeb React SDK and wrap the entire application – including each Conversation instance – with `OpenWebProvider`.
    The OpenWebProvider component allows you to define spotId one time for all Conversation instances within the app.
@@ -80,7 +82,7 @@ const App = () => {
    - articleTags
    - postUrl
 
-💡 _NOTE: If you prefer not to wrap your app with the OpenWebProvider component, use the Single Conversation implementation instructions and add multiple Conversation instances to the single-page application._
+> 💡 **_NOTE:_** If you prefer not to wrap your app with the OpenWebProvider component, use the Single Conversation implementation instructions and add multiple Conversation instances to the single-page application.\_
 
 ## Messages Count Implementation
 
@@ -88,7 +90,7 @@ To show your users the engagement level of a specific Conversation, you can use 
 
 You can style the text returned from the component by defining the className attribute with the name of CSS class or by defining an inline style.
 
-💡 _NOTE: The `MessagesCount` component does not need to be displayed with the Conversation it references. For example, you can preview an article with its title and number of posted comments._
+> 💡 **_NOTE:_** The `MessagesCount` component does not need to be displayed with the Conversation it references. For example, you can preview an article with its title and number of posted comments.\_
 
 1. Import `MessagesCount` from the OpenWeb React SDK.
 
