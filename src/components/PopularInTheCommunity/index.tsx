@@ -16,7 +16,7 @@ export const PopularInTheCommunity: React.FC<IProps> = ({
   postId,
   postUrl,
   theme,
-  isSidebar = false,
+  isSidebar = undefined,
   categories,
   ...attributes
 }) => {

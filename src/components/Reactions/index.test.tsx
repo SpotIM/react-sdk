@@ -3,12 +3,12 @@ import { render } from '@testing-library/react';
 
 import { OpenWebProvider } from '../OpenWebProvider';
 
-import { Reactions, IProps as ConversationProps } from '.';
+import { Reactions, IProps as ReactionsProps } from '.';
 
 const spotId = 'sp_test';
 const postId = 'post';
 const postUrl = 'www.example.com';
-const conversationProps: ConversationProps = {
+const reactionsProps: ReactionsProps = {
   spotId,
   postId,
   postUrl,
@@ -19,28 +19,42 @@ afterEach(() => {
   document.body.innerHTML = '';
 });
 
-describe('Conversation', () => {
-  test('Should Render Conversation', () => {
-    const { getByTestId } = render(<Reactions {...conversationProps} data-testid="conversation" />);
-    const conversation = getByTestId('conversation');
-    expect(conversation.dataset).toMatchObject({
-      spotimModule: 'conversation',
-      postId: conversationProps.postId,
-      postUrl: conversationProps.postUrl,
+describe('Reactions', () => {
+  test('Should Render Reactions', () => {
+    const { getByTestId } = render(<Reactions {...reactionsProps} data-testid="reactions" />);
+    const reactions = getByTestId('reactions');
+    expect(reactions.dataset).toMatchObject({
+      spotimModule: 'reactions',
+      spotimApp: 'reactions',
+      postId: reactionsProps.postId,
+      postUrl: reactionsProps.postUrl,
+    });
+  });
+
+  test('Should Render Reactions with sidebar', () => {
+    const { getByTestId } = render(<Reactions {...reactionsProps} isSidebar data-testid="reactions" />);
+    const reactions = getByTestId('reactions');
+    expect(reactions.dataset).toMatchObject({
+      spotimModule: 'reactions',
+      spotimApp: 'reactions',
+      verticalView: 'true',
+      postId: reactionsProps.postId,
+      postUrl: reactionsProps.postUrl,
     });
   });
 
   test('Should Render Conversation within OpenWebProvider', () => {
     const { getByTestId } = render(
       <OpenWebProvider spotId={spotId} authentication={{}}>
-        <Reactions {...conversationProps} data-testid="conversation" />
+        <Reactions {...reactionsProps} data-testid="reactions" />
       </OpenWebProvider>,
     );
-    const conversation = getByTestId('conversation');
-    expect(conversation.dataset).toMatchObject({
-      spotimModule: 'conversation',
-      postId: conversationProps.postId,
-      postUrl: conversationProps.postUrl,
+    const reactions = getByTestId('reactions');
+    expect(reactions.dataset).toMatchObject({
+      spotimModule: 'reactions',
+      spotimApp: 'reactions',
+      postId: reactionsProps.postId,
+      postUrl: reactionsProps.postUrl,
     });
   });
 });

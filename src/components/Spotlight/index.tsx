@@ -3,22 +3,26 @@ import React from 'react';
 import { ProductWrapper } from '../ProductWrapper';
 
 export interface IProps extends React.HTMLAttributes<HTMLDivElement> {
-  postId: string;
-  postUrl: string;
   spotId?: string;
   theme?: 'light' | 'dark';
   isSidebar?: boolean;
+  cardType?: 'counter' | 'form';
 }
 
-export const Reactions: React.FC<IProps> = ({ spotId, postId, postUrl, theme, isSidebar = false, ...attributes }) => {
+export const Spotlight: React.FC<IProps> = ({
+  spotId,
+  theme,
+  isSidebar = undefined,
+  cardType = undefined,
+  ...attributes
+}) => {
   return (
     <ProductWrapper spotId={spotId}>
       <div
         {...attributes}
-        data-spotim-app="reactions"
-        data-post-id={postId}
-        data-post-url={postUrl}
-        data-vertical-view={isSidebar}
+        data-conversation-spotlight
+        data-spotlight-sidebar={isSidebar}
+        data-card-type={cardType}
         data-theme={theme}
       />
     </ProductWrapper>
