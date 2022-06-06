@@ -33,6 +33,7 @@ export const addLauncherScript = ({
   script.onerror = onError;
   script.dataset.spotimModule = 'spotim-launcher';
   script.dataset.spotimAutorun = String(autoRun);
+  script.dataset.disableConversationHeader = 'true';
 
   Object.entries(attributes).forEach(([key, value]) => {
     if (value) {
