@@ -1,6 +1,6 @@
 {
   "name": "@open-web/react-sdk",
-  "version": "1.4.0-beta3",
+  "version": "1.4.0-beta4",
   "description": "React wrapper around OpenWeb's products",
   "author": "OpenWeb",
   "license": "UNLICENSED",
