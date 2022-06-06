@@ -24,7 +24,6 @@ describe('Reactions', () => {
     const { getByTestId } = render(<Reactions {...reactionsProps} data-testid="reactions" />);
     const reactions = getByTestId('reactions');
     expect(reactions.dataset).toMatchObject({
-      spotimModule: 'reactions',
       spotimApp: 'reactions',
       postId: reactionsProps.postId,
       postUrl: reactionsProps.postUrl,
@@ -35,7 +34,6 @@ describe('Reactions', () => {
     const { getByTestId } = render(<Reactions {...reactionsProps} isSidebar data-testid="reactions" />);
     const reactions = getByTestId('reactions');
     expect(reactions.dataset).toMatchObject({
-      spotimModule: 'reactions',
       spotimApp: 'reactions',
       verticalView: 'true',
       postId: reactionsProps.postId,
@@ -51,7 +49,6 @@ describe('Reactions', () => {
     );
     const reactions = getByTestId('reactions');
     expect(reactions.dataset).toMatchObject({
-      spotimModule: 'reactions',
       spotimApp: 'reactions',
       postId: reactionsProps.postId,
       postUrl: reactionsProps.postUrl,
