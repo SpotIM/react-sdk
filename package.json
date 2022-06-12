@@ -19,10 +19,10 @@
   "useEffects": false,
   "targets": {
     "main": {
-      "optimize": false
+      "optimize": true
     },
     "module": {
-      "optimize": false
+      "optimize": true
     }
   },
   "scripts": {
