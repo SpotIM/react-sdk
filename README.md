@@ -203,3 +203,73 @@ const App = () => {
   );
 };
 ```
+
+## OpenWeb Widgets
+
+### Popular in The Community
+
+https://developers.openweb.com/docs/popular-in-the-community
+
+```typescript
+import { PopularInTheCommunity } from '@open-web/react-sdk';
+
+<PopularInTheCommunity postId={postId} postUrl={postUrl} />;
+```
+
+Optional attributes:
+
+```typescript
+  isSidebar?: boolean;
+  categories?: string[];
+```
+
+### Spotlight
+
+https://developers.openweb.com/docs/community-spotlight
+
+```typescript
+import { Spotlight } from '@open-web/react-sdk';
+
+<Spotlight />;
+```
+
+Optional attributes:
+
+```typescript
+  isSidebar?: boolean;
+  cardType?: 'counter' | 'form';
+```
+
+### Reactions
+
+https://developers.openweb.com/docs/reactions
+
+```typescript
+import { Reactions } from '@open-web/react-sdk';
+
+<Reactions postId={postId} postUrl={postUrl} />;
+```
+
+Optional attributes:
+
+```typescript
+  isSidebar?: boolean;
+```
+
+### Topic Tracker
+
+https://developers.openweb.com/docs/topic-tracker
+
+```typescript
+import { Reactions } from '@open-web/react-sdk';
+
+<TopicTracker postId={postId} postUrl={postUrl} />;
+```
+
+Optional attributes:
+
+```typescript
+  isSidebar?: boolean;
+  keywords?: string[];
+  authors?: string[];
+```

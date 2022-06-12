@@ -1,6 +1,6 @@
 {
   "name": "@open-web/react-sdk",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "React wrapper around OpenWeb's products",
   "author": "OpenWeb",
   "license": "UNLICENSED",
@@ -19,10 +19,10 @@
   "useEffects": false,
   "targets": {
     "main": {
-      "optimize": true
+      "optimize": false
     },
     "module": {
-      "optimize": true
+      "optimize": false
     }
   },
   "scripts": {

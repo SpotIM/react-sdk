@@ -6,7 +6,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/node:current
+      - image: cimg/node:14.18.1
     working_directory: ~/app
     steps:
       - checkout
@@ -39,7 +39,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
   deploy:
     docker:
-      - image: cimg/node:current
+      - image: cimg/node:14.18.1
     working_directory: ~/app
     steps:
       - checkout
