@@ -34,7 +34,6 @@ export const addLauncherScript = ({
   script.dataset.spotimModule = 'spotim-launcher';
   script.dataset.spotimAutorun = String(autoRun);
 
-
   Object.entries(attributes).forEach(([key, value]) => {
     if (value) {
       script.dataset[key] = String(value);
