@@ -4,7 +4,11 @@ import { useOpenWebContext } from '../../common/context';
 import { IOpenWebBaseProps } from '../../types';
 import { useLauncher } from '../../common/hooks/useLauncher';
 
-export const ProductWrapper: React.FC<Partial<IOpenWebBaseProps>> = ({ spotId: _spotId, children, ...rest }) => {
+export const ProductWrapper: React.FC<Partial<IOpenWebBaseProps & { children?: React.ReactNode }>> = ({
+  spotId: _spotId,
+  children,
+  ...rest
+}) => {
   const owContext = useOpenWebContext();
   const spotId = _spotId || owContext.spotId;
 
