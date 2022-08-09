@@ -11,6 +11,7 @@ interface IProps {
   spotId: string;
   authentication?: TUseAuthentication;
   tracking?: { [eventName: string]: (event: OpenWebSDKEvent) => any };
+  children?: React.ReactNode;
 }
 
 export const OpenWebProvider: React.FC<IProps> = ({ spotId, authentication, tracking = {}, children }) => {
