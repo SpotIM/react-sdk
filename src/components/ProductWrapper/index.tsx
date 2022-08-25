@@ -13,7 +13,18 @@ export const ProductWrapper: React.FC<Partial<IOpenWebBaseProps & { children?: R
   const spotId = _spotId || owContext.spotId;
 
   if (!spotId) {
-    throw new Error(`[OpenWeb] Couldn't find spot-id for OpenWeb products.`);
+    document.dispatchEvent(
+      new CustomEvent(`ow-event`, {
+        detail: {
+          type: 'error',
+          payload: {
+            msg: `[OpenWeb] Couldn't find spot-id for OpenWeb products.`,
+          },
+        },
+      }),
+    );
+
+    return null;
   }
 
   useLauncher({ ...owContext, ...rest, spotId });
