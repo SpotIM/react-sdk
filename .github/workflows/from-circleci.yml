@@ -1,0 +1,66 @@
+# Migrated from CircleCI (standalone). Repo: react-sdk
+name: CI (from CircleCI)
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Optional tag override when not on a tag ref
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: us-east-1
+      RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: yarn
+      - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_GITHUB_ACTIONS_RO }}" > .npmrc
+      - run: yarn install --frozen-lockfile
+      - name: Build
+        env:
+          PUBLIC_PATH: https://static-cdn.spot.im/production/react-sdk/tags/${{ env.RELEASE_TAG }}/
+        run: yarn run build
+      - run: yarn run bundlewatch
+      - name: Test
+        run: yarn test --ci --runInBand --passWithNoTests --coverage --reporters=default --reporters=jest-junit
+        env:
+          JEST_JUNIT_OUTPUT_DIR: reports/junit
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.PROD_CICD_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.PROD_CICD_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: S3 sync
+        run: aws s3 sync "dist" "s3://spotim-prd-static-assets/production/react-sdk/tags/${{ env.RELEASE_TAG }}" --region us-east-1 --acl public-read
+      - name: Deployer
+        env:
+          DEPLOYER_API_KEY: ${{ secrets.DEPLOYER_API_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p scripts
+          aws s3 sync s3://spotim-deployer-script scripts/ --region us-east-1 --acl public-read
+          export DEPLOYER_JSON_PATH="${{ github.workspace }}/deployer.json"
+          for host in deployer-api.spot.im deployer-api.staging-spot.im; do
+            node "${{ github.workspace }}/scripts/deployer.js" \
+              "asset-cdn-base-url=https://static-cdn.spot.im/production/react-sdk/tags/${{ env.RELEASE_TAG }}" \
+              "deployer-json-path=$DEPLOYER_JSON_PATH" \
+              repo-name=react-sdk \
+              "tag=${{ env.RELEASE_TAG }}" \
+              "commit_sha=${{ github.sha }}" \
+              "user=${{ github.actor }}" \
+              "token=$DEPLOYER_API_KEY" \
+              "deployer-url=$host"
+          done
